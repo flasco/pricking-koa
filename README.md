@@ -4,6 +4,10 @@
 
 ## target
 
-[ ] 拥抱 ts
-[ ] 提供基础的 decorator 能力，方便快速定义路由
+[x] 拥抱 ts
+[ ] ts 模式下的调试能力
+[ ] lint 能力
+[ ] test 能力
+[ ] 清理一下 middleware 的加载方式
+[x] 提供基础的 decorator 能力，方便快速定义路由
 [ ] 提供简单的依赖注入能力
