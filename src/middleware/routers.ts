@@ -20,7 +20,7 @@ const createRouter = (Controller: any, router: Router) => {
           throw new Error(`fail to registe [${method}] ${key}`);
         }
 
-        const mergedPath = (basePath + path).replace('\/\/', '/');
+        const mergedPath = (basePath + path).replace(/\/{2,}/g, '/');
         router[method](desc, mergedPath, async (ctx: Context) => {
           /** 每次请求都实例化的话可以让每次请求的都保持独立 */
           /** TODO: 但是一个请求只会用到一个method，是不是有点浪费？ */
@@ -62,7 +62,9 @@ export const initRouters = (controllerDir: string) => {
     createRouter(ctor, koaRouter);
   }
 
-  console.log(koaRouter.routes())
+  if (koaRouter.stack.length < 1) {
+    throw new Error('route is empty, register failed');
+  }
 
   const routerMiddleware = compose([
     koaRouter.routes(),

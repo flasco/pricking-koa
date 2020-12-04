@@ -1,4 +1,4 @@
-import { HttpStatus } from '@app/constants';
+import { HttpStatus } from '../constants';
 
 interface IMessage {
   data?: Record<string, any>;
