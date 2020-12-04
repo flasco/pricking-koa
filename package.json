@@ -13,15 +13,12 @@
     "test": "jest"
   },
   "dependencies": {
-    "@koa/cors": "^3.1.0",
     "@koa/router": "^10.0.0",
     "fs-extra": "^9.0.1",
     "koa": "^2.13.0",
     "koa-bodyparser": "^4.3.0",
     "koa-compose": "^4.1.0",
-    "koa-compress": "^5.0.1",
     "koa-logger": "^3.2.1",
-    "module-alias": "^2.2.2",
     "tslib": "^2.0.3"
   },
   "devDependencies": {

@@ -5,20 +5,37 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "ts Program",
+      "type": "node",
+      "request": "launch",
+      "args": [
+        "${workspaceRoot}/src/index.ts" // 入口文件
+      ],
+      "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
+      "sourceMaps": true,
+      "cwd": "${workspaceRoot}",
+      "protocol": "inspector",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "name": "Current TS File",
+      "type": "node",
+      "request": "launch",
+      "args": ["${relativeFile}"],
+      "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
+      "sourceMaps": true,
+      "cwd": "${workspaceRoot}",
+      "protocol": "inspector",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
       "type": "node",
       "request": "launch",
       "console": "internalConsole",
       "name": "BASE DEBUG",
       "program": "${file}"
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "启动程序",
-      "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}/--files",
-      "preLaunchTask": "tsc: build - tsconfig.json",
-      "outFiles": ["${workspaceFolder}/dev/**/*.js"]
     }
   ]
 }

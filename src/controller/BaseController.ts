@@ -1,8 +1,8 @@
-import { Context } from 'koa';
+import { PrickingCtx } from '../definitions';
 
 class BaseController {
-  ctx: Context;
-  constructor(ctx: Context) {
+  ctx: PrickingCtx;
+  constructor(ctx: PrickingCtx) {
     this.ctx = ctx;
   }
 }

@@ -1,3 +1,4 @@
+/** 注册当前 controller 为 router */
 export const Controller = (path = '/') => {
   return (target: any) => {
     target.prototype.path = path;

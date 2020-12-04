@@ -5,7 +5,7 @@ a simple node framework based on koa2, in order to improve development efficienc
 ## target
 
 - [x] all in ts
-- [ ] debug in ts mode
+- [x] debug in ts mode
 - [ ] lint
 - [ ] test
 - [ ] clean middleware loader

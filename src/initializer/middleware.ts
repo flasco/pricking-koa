@@ -1,10 +1,10 @@
 import Koa from 'koa';
 import path from 'path';
 
-import middlewares from '@app/middleware';
-import { initRouters } from '@app/middleware/routers';
+import middlewares from '../middleware';
+import { initRouters } from '../middleware/routers';
 
-import { IOptions } from '@app/definitions/application';
+import { IOptions } from '../definitions/application';
 
 export const middlewareInitializer = (app: Koa, options: IOptions) => {
   app.use(middlewares);
