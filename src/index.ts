@@ -1,10 +1,11 @@
 import Koa from 'koa';
 import Router from '@koa/router';
-// import path from 'path';
 
 import { IOptions } from './definitions/application';
 
 import { middlewareInitializer } from './initializer/middleware';
+
+export * from './utils/decorator';
 
 class Application {
   app: Koa;
@@ -33,7 +34,7 @@ class Application {
   }
 }
 
-export = Application;
+export { Application as PrickingApplication };
 
 // new Application({
 //   baseUrl: path.resolve(__dirname),

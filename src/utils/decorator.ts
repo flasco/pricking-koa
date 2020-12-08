@@ -1,6 +1,7 @@
 /** 注册当前 controller 为 router */
 export const Controller = (path = '/') => {
   return (target: any) => {
+    if (!path.startsWith('/')) path = '/' + path;
     target.prototype.path = path;
   };
 };
