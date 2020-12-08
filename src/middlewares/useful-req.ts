@@ -16,21 +16,21 @@ class Message {
   /** 额外的错误信息 */
   extra?: Record<string, any>;
   constructor({ code, msg, data, extra }: IMessage) {
-    this.data = data || null;
+    this.data = data;
     this.msg = msg || '';
     this.code = code || HttpStatus.Ok;
     this.success = code == HttpStatus.Ok;
-    this.extra = extra || null;
+    this.extra = extra;
   }
 }
 
 export = () => {
-  function renderJson(code = HttpStatus.Ok, msg = '', data = null) {
+  function renderJson(code = HttpStatus.Ok, msg = '', data) {
     this.set('Content-Type', 'application/json');
     this.body = new Message({ code, msg, data });
   }
 
-  function renderSuccess(data = null) {
+  function renderSuccess(data) {
     this.set('Content-Type', 'application/json');
     this.body = new Message({ code: HttpStatus.Ok, data });
   }
