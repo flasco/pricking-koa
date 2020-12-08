@@ -3,7 +3,7 @@ import Router from '@koa/router';
 
 import { IOptions } from './definitions/application';
 
-import { middlewareInitializer } from './initializer/middleware';
+import { dependencyLoader } from './loader';
 
 export class PrickingApplication {
   app: Koa;
@@ -20,7 +20,7 @@ export class PrickingApplication {
 
   init() {
     this.app = new Koa();
-    middlewareInitializer(this.app, this.options);
+    dependencyLoader(this.app, this.options);
   }
 
   start() {

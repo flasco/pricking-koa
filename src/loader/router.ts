@@ -39,7 +39,7 @@ const createRouter = (Controller: any, router: Router) => {
   return router;
 };
 
-export const initRouters = (controllerDir: string) => {
+export const loadRoutes = (controllerDir: string) => {
   const paths = [controllerDir];
   const files = [];
   const koaRouter = new Router();
