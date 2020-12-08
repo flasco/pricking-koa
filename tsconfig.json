@@ -7,7 +7,7 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "outDir": "./dev",
+    "outDir": "./local",
     "esModuleInterop": true,
     "allowJs": true,
     "importHelpers": true,

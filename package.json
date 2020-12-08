@@ -1,13 +1,19 @@
 {
-  "name": "pricking-koa",
+  "name": "@flasco/pricking-koa",
   "version": "0.0.1",
   "description": "",
   "author": "",
   "private": true,
+  "main": "dist/index.js",
+  "files": ["dist"],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "scripts": {
     "start": "ts-node src/index.ts --files",
     "start:dev": "yarn start --watch",
-    "build": "tsc",
+    "build": "rm -rf dist && tsc --project tsconfig.prod.json",
+    "prepublishOnly": "yarn build",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest"
