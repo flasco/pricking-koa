@@ -3,6 +3,7 @@ import fse from 'fs-extra';
 import compose from 'koa-compose';
 
 export const loadExtraMiddlewares = (controllerDir: string) => {
+  if (!fse.existsSync(controllerDir)) return null;
   const paths = [controllerDir];
   const files = [];
 

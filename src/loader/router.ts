@@ -40,6 +40,10 @@ const createRouter = (Controller: any, router: Router) => {
 };
 
 export const loadRoutes = (controllerDir: string) => {
+  if (!fse.existsSync(controllerDir)) {
+    throw new Error('controllers directory not exist, register failed');
+  }
+
   const paths = [controllerDir];
   const files = [];
   const koaRouter = new Router();
