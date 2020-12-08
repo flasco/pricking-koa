@@ -13,7 +13,7 @@ export const middlewareInitializer = (app: Koa, options: IOptions) => {
   // app.use(initExtraMiddleware());
 
   const routeMiddleware = initRouters(
-    path.resolve(options.baseUrl, 'controller')
+    path.resolve(options.baseUrl, 'controllers')
   );
 
   app.use(routeMiddleware);
