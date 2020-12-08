@@ -14,7 +14,7 @@ export const dependencyLoader = (app: Koa, options: IOptions) => {
   const ctorDir = path.resolve(options.baseUrl, 'controllers');
 
   const extraMiddleware = loadExtraMiddlewares(mwreDir);
-  if (!extraMiddleware) app.use(extraMiddleware);
+  if (extraMiddleware) app.use(extraMiddleware);
   const routeMiddleware = loadRoutes(ctorDir);
 
   app.use(routeMiddleware);
