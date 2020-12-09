@@ -24,7 +24,9 @@ export const loadExtraMiddlewares = (controllerDir: string) => {
   while (files.length) {
     const filePath = files.shift();
     const mwre = require(filePath);
-    middlewares.push(mwre);
+    if (typeof mwre === 'function') {
+      middlewares.push(mwre);
+    }
   }
 
   if (!middlewares.length) return null;
