@@ -1,8 +1,8 @@
 import { PrickingCtx } from '../definitions';
 
-class BaseController {
-  ctx: PrickingCtx;
-  constructor(ctx: PrickingCtx) {
+class BaseController<T extends PrickingCtx = PrickingCtx> {
+  ctx: T;
+  constructor(ctx: T) {
     this.ctx = ctx;
   }
 }
