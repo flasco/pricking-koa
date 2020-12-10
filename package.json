@@ -10,9 +10,10 @@
     "dist"
   ],
   "publishConfig": {
-    "registry": "https://npmjs.com/"
+    "registry": "https://registry.npmjs.org"
   },
   "scripts": {
+    "npm-login": "npm login --registry=https://registry.npmjs.org",
     "start": "ts-node src/index.ts --files",
     "build": "rm -rf dist && tsc --project tsconfig.prod.json",
     "prepublishOnly": "yarn build",
