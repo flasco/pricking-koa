@@ -1,7 +1,7 @@
 export const MainRouteSymbol = Symbol('main-route-path');
 export const SubPathSymbol = Symbol('sub-route-path');
 export const PathMethodSymbol = Symbol('route-method');
-export const PathDescSymbol = Symbol('route-method');
+export const PathDescSymbol = Symbol('route-description');
 
 /** 注册当前 controller 为 router */
 export const Controller = (path = '/') => {
