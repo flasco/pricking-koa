@@ -4,23 +4,32 @@ import fse from 'fs-extra';
 import path from 'path';
 import compose from 'koa-compose';
 
+import {
+  MainRouteSymbol,
+  PathDescSymbol,
+  PathMethodSymbol,
+  SubPathSymbol,
+} from '../utils/decorator';
+
 const methods = ['get', 'put', 'post', 'patch', 'delete', 'del'];
 
 const createRouter = (Controller: any, router: Router) => {
   const ptype = Controller?.prototype;
-  const basePath = ptype?.path;
+  const basePath = ptype?.[MainRouteSymbol];
   if (!basePath) return null;
 
-  Object.getOwnPropertyNames(ptype).forEach((key) => {
+  Object.getOwnPropertyNames(ptype).forEach(key => {
     const clsProperty = ptype[key];
     if (typeof clsProperty === 'function') {
-      const { method, desc = '', path } = clsProperty;
+      const method = clsProperty[PathMethodSymbol];
+      const desc = clsProperty[PathDescSymbol] || '';
+      const subPath = clsProperty[SubPathSymbol];
       if (method) {
         if (!methods.includes(method)) {
           throw new Error(`fail to registe [${method}] ${key}`);
         }
 
-        const mergedPath = (basePath + path).replace(/\/{2,}/g, '/');
+        const mergedPath = (basePath + subPath).replace(/\/{2,}/g, '/');
         router[method](desc, mergedPath, async (ctx: Context) => {
           /** 每次请求都实例化的话可以让每次请求的都保持独立 */
           /** TODO: 但是一个请求只会用到一个method，是不是有点浪费？ */
@@ -62,6 +71,7 @@ export const loadRoutes = (controllerDir: string) => {
 
   while (files.length) {
     const filePath = files.shift();
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const ctor = require(filePath);
     createRouter(ctor, koaRouter);
   }
@@ -70,10 +80,7 @@ export const loadRoutes = (controllerDir: string) => {
     throw new Error('route is empty, register failed');
   }
 
-  const routerMiddleware = compose([
-    koaRouter.routes(),
-    koaRouter.allowedMethods(),
-  ]);
+  const routerMiddleware = compose([koaRouter.routes(), koaRouter.allowedMethods()]);
 
   return routerMiddleware;
 };

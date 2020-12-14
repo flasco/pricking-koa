@@ -1,16 +1,21 @@
+export const MainRouteSymbol = Symbol('main-route-path');
+export const SubPathSymbol = Symbol('sub-route-path');
+export const PathMethodSymbol = Symbol('route-method');
+export const PathDescSymbol = Symbol('route-method');
+
 /** 注册当前 controller 为 router */
 export const Controller = (path = '/') => {
   return (target: any) => {
     if (!path.startsWith('/')) path = '/' + path;
-    target.prototype.path = path;
+    target.prototype[MainRouteSymbol] = path;
   };
 };
 
 const Request = (path: string, method: string) => {
   return (target: any, key: string) => {
     if (!path.startsWith('/')) path = '/' + path;
-    target[key].path = path;
-    target[key].method = method;
+    target[key][SubPathSymbol] = path;
+    target[key][PathMethodSymbol] = method;
   };
 };
 
@@ -27,6 +32,6 @@ export const Post = (path = '/') => {
 /** 路由注释 */
 export const Description = (desc = '') => {
   return (target: any, key: string) => {
-    target[key].desc = desc;
+    target[key][PathDescSymbol] = desc;
   };
 };
