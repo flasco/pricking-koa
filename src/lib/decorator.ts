@@ -29,6 +29,16 @@ export const Post = (path = '/') => {
   return Request(path, 'post');
 };
 
+/** Put 请求 */
+export const Put = (path = '/') => {
+  return Request(path, 'put');
+};
+
+/** Delete 请求 */
+export const Delete = (path = '/') => {
+  return Request(path, 'delete');
+};
+
 /** 路由注释 */
 export const Description = (desc = '') => {
   return (target: any, key: string) => {
