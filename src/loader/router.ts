@@ -4,12 +4,7 @@ import fse from 'fs-extra';
 import path from 'path';
 import compose from 'koa-compose';
 
-import {
-  MainRouteSymbol,
-  PathDescSymbol,
-  PathMethodSymbol,
-  SubPathSymbol,
-} from '../utils/decorator';
+import { MainRouteSymbol, PathDescSymbol, PathMethodSymbol, SubPathSymbol } from '../lib/decorator';
 
 const methods = ['get', 'put', 'post', 'patch', 'delete', 'del'];
 

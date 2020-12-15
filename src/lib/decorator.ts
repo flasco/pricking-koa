@@ -14,7 +14,7 @@ export const Controller = (path = '/') => {
 const Request = (path: string, method: string) => {
   return (target: any, key: string) => {
     if (!path.startsWith('/')) path = '/' + path;
-    target[key][SubPathSymbol] = path;
+    target[key][SubPathSymbol] = '/api' + path;
     target[key][PathMethodSymbol] = method;
   };
 };
