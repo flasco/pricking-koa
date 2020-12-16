@@ -1,28 +1,17 @@
 import path from 'path';
-import fse from 'fs-extra';
 import compose from 'koa-compose';
+import { getDirFiles } from '../utils/file-loader';
 
-export const loadExtraMiddlewares = (controllerDir: string) => {
-  if (!fse.existsSync(controllerDir)) return null;
-  const paths = [controllerDir];
-  const files = [];
+export const loadExtraMiddlewares = (rootUrl: string) => {
+  const controllerDir = path.resolve(rootUrl, 'middlewares');
 
-  while (paths.length) {
-    const pathx = paths.shift();
-    const contents = fse.readdirSync(pathx);
-
-    while (contents.length) {
-      const content = path.resolve(pathx, contents.shift());
-      const stat = fse.statSync(content);
-      if (stat.isDirectory()) paths.push(content);
-      else if (stat.isFile()) files.push(content);
-    }
-  }
+  const files = getDirFiles(controllerDir);
 
   const middlewares = [];
 
   while (files.length) {
     const filePath = files.shift();
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const mwre = require(filePath);
     if (typeof mwre === 'function') {
       middlewares.push(mwre);

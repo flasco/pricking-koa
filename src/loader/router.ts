@@ -1,10 +1,10 @@
 import Router from '@koa/router';
 import { Context } from 'koa';
-import fse from 'fs-extra';
 import path from 'path';
 import compose from 'koa-compose';
 
 import { MainRouteSymbol, PathDescSymbol, PathMethodSymbol, SubPathSymbol } from '../lib/decorator';
+import { getDirFiles } from '../utils/file-loader';
 
 const methods = ['get', 'put', 'post', 'patch', 'delete', 'del'];
 
@@ -43,26 +43,11 @@ const createRouter = (Controller: any, router: Router) => {
   return router;
 };
 
-export const loadRoutes = (controllerDir: string) => {
-  if (!fse.existsSync(controllerDir)) {
-    throw new Error('controllers directory not exist, register failed');
-  }
+export const loadRoutes = (rootPath: string) => {
+  const controllerDir = path.resolve(rootPath, 'controllers');
 
-  const paths = [controllerDir];
-  const files = [];
+  const files = getDirFiles(controllerDir);
   const koaRouter = new Router();
-
-  while (paths.length) {
-    const pathx = paths.shift();
-    const contents = fse.readdirSync(pathx);
-
-    while (contents.length) {
-      const content = path.resolve(pathx, contents.shift());
-      const stat = fse.statSync(content);
-      if (stat.isDirectory()) paths.push(content);
-      else if (stat.isFile()) files.push(content);
-    }
-  }
 
   while (files.length) {
     const filePath = files.shift();

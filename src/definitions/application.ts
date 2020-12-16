@@ -1,5 +1,5 @@
 export interface IOptions {
-  baseUrl?: string;
+  rootPath?: string;
   port?: number;
   env?: string;
 }

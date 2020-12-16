@@ -11,7 +11,7 @@ export class PrickingApplication {
   options: IOptions;
 
   constructor(options: IOptions) {
-    options.baseUrl = options.baseUrl || process.cwd();
+    options.rootPath = options.rootPath || process.cwd();
     options.env = options.env || 'development';
     this.options = options;
     this.init();
