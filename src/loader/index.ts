@@ -12,7 +12,7 @@ export const dependencyLoader = (app: Koa, options: IOptions) => {
 
   app.use(middlewares);
 
-  const extraMiddleware = loadExtraMiddlewares(rootPath);
+  const extraMiddleware = loadExtraMiddlewares(rootPath, options);
   if (extraMiddleware) app.use(extraMiddleware);
 
   const routeMiddleware = loadRoutes(rootPath, options);

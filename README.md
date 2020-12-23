@@ -61,6 +61,29 @@ class AnalyseController extends BaseController {
 export = AnalyseController;
 ```
 
+```ts
+import { PrickingApplication } from 'pricking-koa';
+
+new PrickingApplication({
+  // framework will auto load route from <ROOT>/controllers
+  rootPath: __dirname,
+  port: 3002,
+  env: 'dev',
+  debug: true,
+});
+
+```
+
+## middleware
+```ts
+export = (options: IOptions) => async (ctx, next) => {
+  console.log(options.env);
+  console.log('hello');
+  await next();
+  console.log('end');
+};
+```
+
 ## target
 
 - [x] all in ts

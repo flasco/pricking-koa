@@ -9,7 +9,7 @@ import { IOptions } from '../definitions/application';
 
 const methods = ['get', 'put', 'post', 'patch', 'delete', 'del'];
 
-const createRouter = (Controller: any, router: Router, debug = false) => {
+const createRouter = (Controller: any, router: Router, options: IOptions) => {
   const ptype = Controller?.prototype;
   const basePath = ptype?.[MainRouteSymbol];
   if (!basePath) return null;
@@ -26,12 +26,10 @@ const createRouter = (Controller: any, router: Router, debug = false) => {
         }
 
         const mergedPath = (basePath + subPath).replace(/\/{2,}/g, '/');
-        if (debug) console.log(`[${method.toUpperCase()}]`, mergedPath, desc);
+        if (options.debug) console.log(`[${method.toUpperCase()}]`, mergedPath, desc);
         router[method](desc, mergedPath, async (ctx: Context) => {
           /** 每次请求都实例化的话可以让每次请求的都保持独立 */
-          /** TODO: 但是一个请求只会用到一个method，是不是有点浪费？ */
-          /** 下次看看别的框架的 router 是怎么实现的 */
-          const c = new Controller(ctx);
+          const c = new Controller(ctx, options);
 
           if (ctx.status !== 301 && ctx.status !== 302 && !ctx.body) {
             /** 依赖函数内的 this.ctx 来取得当前请求的内容 */
@@ -55,7 +53,7 @@ export const loadRoutes = (rootPath: string, options: IOptions) => {
     const filePath = files.shift();
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const ctor = require(filePath);
-    createRouter(ctor, koaRouter, options.debug);
+    createRouter(ctor, koaRouter, options);
   }
 
   if (koaRouter.stack.length < 1) {
