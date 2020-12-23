@@ -6,10 +6,21 @@ WARNING: now only as an api server.
 
 ## focus
 
-> baseUrl is application root directory
+> rootPath is application root directory
 
-1. The baseUrl must contain `controllers` folder to load router.
-2. if want add extra middlewares, you can add `middlewares` folder in baseUrl.
+1. The rootPath must contain `controllers` folder to load router.
+2. if want add extra middlewares, you can add `middlewares` folder in rootPath.
+
+## Necessary directory convention specification
+
+```bash
+src
+├── controllers # use decorator to define router
+├── extends
+│   └── context.ts # append extra property to ctx
+└── middlewares # custom middlewares
+```
+
 
 ## about extra middleware
 
@@ -28,7 +39,7 @@ import BaseController from 'pricking-koa/dist/controllers/BaseController';
 // path pattern -> ${controllerPath}/*
 @Controller('/v3/books')
 class AnalyseController extends BaseController {
-  /** WARNING: now is not support */
+  /** WARNING: @Index now is not support */
   @Index(['/'])
   @Description()
   async index() {
@@ -40,19 +51,19 @@ class AnalyseController extends BaseController {
   // path register -> /v3/books/api/info
   // as same as @Post, @Delete, @Put
   @Get('/info')
-  @Description('查询书籍详情')
+  @Description('getBookInfo')
   async getBookInfo() {
     this.ctx.success({});
   }
 
   @Post('/search')
-  @Description('搜索')
+  @Description('search')
   async searchBook() {
     this.ctx.success({});
   }
 
   @Get('/origin')
-  @Description('查询书籍书源详情')
+  @Description('getBookOriginDetail')
   async getBookOriginDetail() {
     this.ctx.success({});
   }
@@ -71,10 +82,10 @@ new PrickingApplication({
   env: 'dev',
   debug: true,
 });
-
 ```
 
 ## middleware
+
 ```ts
 export = (options: IOptions) => async (ctx, next) => {
   console.log(options.env);
@@ -92,5 +103,4 @@ export = (options: IOptions) => async (ctx, next) => {
 - [ ] test
 - [x] clean middleware loader
 - [x] simple decorator to define route faster
-- [ ] simple inject with DI
 - [ ] support ejs html render & @Index decorator
