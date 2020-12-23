@@ -14,6 +14,8 @@ const createRouter = (Controller: any, router: Router, options: IOptions) => {
   const basePath = ptype?.[MainRouteSymbol];
   if (!basePath) return null;
 
+  const uniqueMap = new Map();
+
   Object.getOwnPropertyNames(ptype).forEach(key => {
     const clsProperty = ptype[key];
     if (typeof clsProperty === 'function') {
@@ -22,11 +24,24 @@ const createRouter = (Controller: any, router: Router, options: IOptions) => {
       const subPath = clsProperty[SubPathSymbol];
       if (method) {
         if (!methods.includes(method)) {
-          throw new Error(`fail to registe [${method}] ${key}`);
+          throw new Error(`failed to register [${method}] ${key}`);
         }
 
         const mergedPath = (basePath + subPath).replace(/\/{2,}/g, '/');
-        if (options.debug) console.log(`[${method.toUpperCase()}]`, mergedPath, desc);
+        const methodKey = `[${method.toUpperCase()}]${mergedPath}`;
+
+        if (options.debug) console.log(methodKey, desc);
+
+        const ctorKey = `${Controller.name}.${key}`;
+
+        if (uniqueMap.has(methodKey)) {
+          throw new Error(
+            `DUPLICATE PATH: ${methodKey} with ${ctorKey} -> ${uniqueMap.get(methodKey)}`
+          );
+        }
+
+        uniqueMap.set(methodKey, ctorKey);
+
         router[method](desc, mergedPath, async (ctx: Context) => {
           /** 每次请求都实例化的话可以让每次请求的都保持独立 */
           const c = new Controller(ctx, options);
