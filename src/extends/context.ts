@@ -19,31 +19,24 @@ class Message {
     this.data = data;
     this.msg = msg || '';
     this.code = code || HttpStatus.Ok;
-    this.success = code == HttpStatus.Ok;
+    this.success = code === HttpStatus.Ok;
     this.extra = extra;
   }
 }
 
-export = () => {
-  function renderJson(code = HttpStatus.Ok, msg = '', data) {
+export = {
+  json(code = HttpStatus.Ok, msg = '', data: any) {
     this.set('Content-Type', 'application/json');
     this.body = new Message({ code, msg, data });
-  }
+  },
 
-  function renderSuccess(data) {
+  success(data: any) {
     this.set('Content-Type', 'application/json');
     this.body = new Message({ code: HttpStatus.Ok, data });
-  }
+  },
 
-  function rednerFail(msg = '请求失败') {
+  fail(msg = '请求失败') {
     this.set('Content-Type', 'application/json');
     this.body = new Message({ code: HttpStatus.Fail, msg });
-  }
-
-  return async (ctx, next) => {
-    ctx.json = renderJson.bind(ctx);
-    ctx.success = renderSuccess.bind(ctx);
-    ctx.fail = rednerFail.bind(ctx);
-    await next();
-  };
+  },
 };

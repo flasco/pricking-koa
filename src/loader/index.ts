@@ -5,6 +5,7 @@ import { loadRoutes } from './router';
 
 import { IOptions } from '../definitions/application';
 import { loadExtraMiddlewares } from './middleware';
+import { loadContextExtends } from './extends';
 
 export const dependencyLoader = (app: Koa, options: IOptions) => {
   const { rootPath } = options;
@@ -13,7 +14,9 @@ export const dependencyLoader = (app: Koa, options: IOptions) => {
 
   const extraMiddleware = loadExtraMiddlewares(rootPath);
   if (extraMiddleware) app.use(extraMiddleware);
-  const routeMiddleware = loadRoutes(rootPath);
 
+  const routeMiddleware = loadRoutes(rootPath, options);
   app.use(routeMiddleware);
+
+  loadContextExtends(app, rootPath, options);
 };

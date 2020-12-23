@@ -5,10 +5,11 @@ import compose from 'koa-compose';
 
 import { MainRouteSymbol, PathDescSymbol, PathMethodSymbol, SubPathSymbol } from '../lib/decorator';
 import { getDirFiles } from '../utils/file-loader';
+import { IOptions } from '../definitions/application';
 
 const methods = ['get', 'put', 'post', 'patch', 'delete', 'del'];
 
-const createRouter = (Controller: any, router: Router) => {
+const createRouter = (Controller: any, router: Router, debug = false) => {
   const ptype = Controller?.prototype;
   const basePath = ptype?.[MainRouteSymbol];
   if (!basePath) return null;
@@ -16,8 +17,8 @@ const createRouter = (Controller: any, router: Router) => {
   Object.getOwnPropertyNames(ptype).forEach(key => {
     const clsProperty = ptype[key];
     if (typeof clsProperty === 'function') {
-      const method = clsProperty[PathMethodSymbol];
-      const desc = clsProperty[PathDescSymbol] || '';
+      const method: string = clsProperty[PathMethodSymbol];
+      const desc: string = clsProperty[PathDescSymbol] || '';
       const subPath = clsProperty[SubPathSymbol];
       if (method) {
         if (!methods.includes(method)) {
@@ -25,6 +26,7 @@ const createRouter = (Controller: any, router: Router) => {
         }
 
         const mergedPath = (basePath + subPath).replace(/\/{2,}/g, '/');
+        if (debug) console.log(`[${method.toUpperCase()}]`, mergedPath, desc);
         router[method](desc, mergedPath, async (ctx: Context) => {
           /** 每次请求都实例化的话可以让每次请求的都保持独立 */
           /** TODO: 但是一个请求只会用到一个method，是不是有点浪费？ */
@@ -43,7 +45,7 @@ const createRouter = (Controller: any, router: Router) => {
   return router;
 };
 
-export const loadRoutes = (rootPath: string) => {
+export const loadRoutes = (rootPath: string, options: IOptions) => {
   const controllerDir = path.resolve(rootPath, 'controllers');
 
   const files = getDirFiles(controllerDir);
@@ -53,7 +55,7 @@ export const loadRoutes = (rootPath: string) => {
     const filePath = files.shift();
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const ctor = require(filePath);
-    createRouter(ctor, koaRouter);
+    createRouter(ctor, koaRouter, options.debug);
   }
 
   if (koaRouter.stack.length < 1) {
