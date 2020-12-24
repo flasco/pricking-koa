@@ -1,6 +1,8 @@
+import { AppMode } from '../constants';
+
 export interface IOptions {
   rootPath?: string;
   port?: number;
   env?: string;
-  debug?: boolean;
+  mode?: AppMode;
 }

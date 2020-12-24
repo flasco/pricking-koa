@@ -3,6 +3,7 @@ import Router from '@koa/router';
 
 import { IOptions } from './definitions/application';
 
+import { AppMode } from './constants';
 import { dependencyLoader } from './loader';
 
 export class PrickingApplication {
@@ -13,9 +14,12 @@ export class PrickingApplication {
   constructor(options: IOptions) {
     options.rootPath = options.rootPath || process.cwd();
     options.env = options.env || 'development';
+    options.mode = options.mode || AppMode.Normal;
     this.options = options;
     this.init();
-    this.start();
+
+    /** 如果是 test mode，不自动执行 start */
+    this.options.mode & AppMode.Test || this.start();
   }
 
   init() {

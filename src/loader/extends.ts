@@ -1,5 +1,6 @@
 import Koa from 'koa';
 import path from 'path';
+import { AppMode } from '../constants';
 import { IOptions } from '../definitions/application';
 
 import baseContext from '../extends/context';
@@ -18,10 +19,10 @@ export const loadContextExtends = (app: Koa, rootPath: string, options: IOptions
   loadProperties({
     proto: app.context,
     target: baseContext,
-    from: 'root',
+    from: 'framework',
     name: 'context',
     originalProto: originalPrototypes.context,
-    debug: options.debug,
+    debug: Boolean(options.mode & AppMode.Debug),
   });
 
   const ctxExtsFilePath = path.resolve(rootPath, 'extends');
@@ -42,10 +43,10 @@ export const loadContextExtends = (app: Koa, rootPath: string, options: IOptions
     loadProperties({
       proto: app.context,
       target: ctxExt,
-      from: '<ROOT>/' + path.relative(options.rootPath, file),
+      from: '<ROOT_DIR>/' + path.relative(options.rootPath, file),
       name,
       originalProto: originalPrototypes[name],
-      debug: options.debug,
+      debug: Boolean(options.mode & AppMode.Debug),
     });
   }
 };
@@ -78,7 +79,7 @@ const loadProperties = ({ proto, name, target = {}, from = '', originalProto, de
         descriptor.get = originalDescriptor.get;
       }
     }
-    if (debug) console.log(name + '-load:', property, from);
+    if (debug) console.log(`[${name}-load]`, from, property);
     Object.defineProperty(proto, property, descriptor);
     mergeRecord.set(property, from);
   }

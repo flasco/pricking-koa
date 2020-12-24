@@ -1,8 +1,8 @@
-import { PrickingApplication } from '../src';
+import { AppMode, PrickingApplication } from '../src';
 
 new PrickingApplication({
   rootPath: __dirname,
   port: 3002,
   env: 'dev',
-  debug: true,
+  mode: AppMode.Debug,
 });

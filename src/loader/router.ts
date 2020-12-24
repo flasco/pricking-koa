@@ -6,6 +6,7 @@ import compose from 'koa-compose';
 import { MainRouteSymbol, PathDescSymbol, PathMethodSymbol, SubPathSymbol } from '../lib/decorator';
 import { getDirFiles } from '../utils/file-loader';
 import { IOptions } from '../definitions/application';
+import { AppMode } from '../constants';
 
 const methods = ['get', 'put', 'post', 'patch', 'delete', 'del'];
 
@@ -30,8 +31,6 @@ const createRouter = (Controller: any, router: Router, options: IOptions) => {
         const mergedPath = (basePath + subPath).replace(/\/{2,}/g, '/');
         const methodKey = `[${method.toUpperCase()}]${mergedPath}`;
 
-        if (options.debug) console.log(methodKey, desc);
-
         const ctorKey = `${Controller.name}.${key}`;
 
         if (uniqueMap.has(methodKey)) {
@@ -40,7 +39,7 @@ const createRouter = (Controller: any, router: Router, options: IOptions) => {
           );
         }
 
-        uniqueMap.set(methodKey, ctorKey);
+        uniqueMap.set(methodKey, [ctorKey, desc]);
 
         router[method](desc, mergedPath, async (ctx: Context) => {
           /** 每次请求都实例化的话可以让每次请求的都保持独立 */
@@ -54,6 +53,12 @@ const createRouter = (Controller: any, router: Router, options: IOptions) => {
       }
     }
   });
+
+  if (options.mode & AppMode.Debug) {
+    uniqueMap.forEach((val, key) => {
+      console.log(key, ...val);
+    });
+  }
 
   return router;
 };
