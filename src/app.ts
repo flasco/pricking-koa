@@ -29,9 +29,10 @@ export class PrickingApplication {
 
   start() {
     const port = this.options?.port ?? 3000;
-    this.app.listen(port, () => {
+    return this.app.listen(port, () => {
       console.log('应用启动成功');
       console.log(`访问地址：http://127.0.0.1:${port}`);
+      this.options?.loadedCallback?.();
     });
   }
 }

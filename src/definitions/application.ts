@@ -5,4 +5,5 @@ export interface IOptions {
   port?: number;
   env?: string;
   mode?: AppMode;
+  loadedCallback?: () => void;
 }
