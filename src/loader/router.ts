@@ -22,12 +22,13 @@ const createRouter = (Controller: any, router: Router, options: IOptions) => {
     if (typeof clsProperty === 'function') {
       const method: string = clsProperty[PathMethodSymbol];
       const desc: string = clsProperty[PathDescSymbol] || '';
-      const subPath = clsProperty[SubPathSymbol];
-      if (method) {
-        if (!methods.includes(method)) {
-          throw new Error(`failed to register [${method}] ${key}`);
-        }
+      const subPaths = clsProperty[SubPathSymbol];
+      if (!method) return;
+      if (!methods.includes(method)) {
+        throw new Error(`failed to register [${method}] ${key}`);
+      }
 
+      const registerPath = (subPath: string) => {
         const mergedPath = (basePath + subPath).replace(/\/{2,}/g, '/');
         const methodKey = `[${method.toUpperCase()}]${mergedPath}`;
 
@@ -38,7 +39,6 @@ const createRouter = (Controller: any, router: Router, options: IOptions) => {
             `DUPLICATE PATH: ${methodKey} with ${ctorKey} -> ${uniqueMap.get(methodKey)}`
           );
         }
-
         uniqueMap.set(methodKey, [ctorKey, desc]);
 
         router[method](desc, mergedPath, async (ctx: Context) => {
@@ -50,7 +50,10 @@ const createRouter = (Controller: any, router: Router, options: IOptions) => {
             await c[key]();
           }
         });
-      }
+      };
+
+      if (Array.isArray(subPaths)) subPaths.forEach(path => registerPath(path));
+      else registerPath(subPaths);
     }
   });
 

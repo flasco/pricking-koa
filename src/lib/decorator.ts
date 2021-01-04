@@ -19,6 +19,15 @@ const Request = (path: string, method: string) => {
   };
 };
 
+export const Index = (paths: string[]) => {
+  return (target: any, key: string) => {
+    target[key][SubPathSymbol] = paths.map(path => {
+      return !path.startsWith('/') ? '/' + path : path;
+    });
+    target[key][PathMethodSymbol] = 'get';
+  };
+};
+
 /** Get 请求 */
 export const Get = (path = '/') => {
   return Request(path, 'get');
