@@ -1,8 +1,10 @@
-export = () => async (ctx, next) => {
+import { PrickingCtx } from '../../src/definitions/index';
+
+export = () => async (ctx: PrickingCtx, next) => {
   try {
     await next();
   } catch (error) {
-    const { method, url, body, query } = ctx.request;
+    const { method, url, body, query } = ctx.request as any;
     if (method === 'GET') {
       const errorObj = {
         method,

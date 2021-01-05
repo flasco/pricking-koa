@@ -16,45 +16,56 @@ const createRouter = (Controller: any, router: Router, options: IOptions) => {
   if (!basePath) return null;
 
   const uniqueMap = new Map();
+  const routeMaper = [];
+
+  const ctorName = Controller.name;
 
   Object.getOwnPropertyNames(ptype).forEach(key => {
     const clsProperty = ptype[key];
     if (typeof clsProperty === 'function') {
       const method: string = clsProperty[PathMethodSymbol];
       const desc: string = clsProperty[PathDescSymbol] || '';
-      const subPaths = clsProperty[SubPathSymbol];
+      let subPaths = clsProperty[SubPathSymbol];
+
       if (!method) return;
       if (!methods.includes(method)) {
         throw new Error(`failed to register [${method}] ${key}`);
       }
 
-      const registerPath = (subPath: string) => {
+      if (!Array.isArray(subPaths)) subPaths = [subPaths];
+
+      subPaths.forEach(subPath => {
         const mergedPath = (basePath + subPath).replace(/\/{2,}/g, '/');
-        const methodKey = `[${method.toUpperCase()}]${mergedPath}`;
-
-        const ctorKey = `${Controller.name}.${key}`;
-
-        if (uniqueMap.has(methodKey)) {
-          throw new Error(
-            `DUPLICATE PATH: ${methodKey} with ${ctorKey} -> ${uniqueMap.get(methodKey)}`
-          );
+        if (subPath.includes('*')) {
+          routeMaper.push({ method, mergedPath, desc, key });
+        } else {
+          routeMaper.unshift({ method, mergedPath, desc, key });
         }
-        uniqueMap.set(methodKey, [ctorKey, desc]);
-
-        router[method](desc, mergedPath, async (ctx: Context) => {
-          /** 每次请求都实例化的话可以让每次请求的都保持独立 */
-          const c = new Controller(ctx, options);
-
-          if (ctx.status !== 301 && ctx.status !== 302 && !ctx.body) {
-            /** 依赖函数内的 this.ctx 来取得当前请求的内容 */
-            await c[key]();
-          }
-        });
-      };
-
-      if (Array.isArray(subPaths)) subPaths.forEach(path => registerPath(path));
-      else registerPath(subPaths);
+      });
     }
+  });
+
+  routeMaper.forEach(({ method, mergedPath, desc, key }) => {
+    const methodKey = `[${method.toUpperCase()}] ${mergedPath}`;
+    const ctorKey = `${ctorName}.${key}`;
+
+    if (uniqueMap.has(methodKey)) {
+      throw new Error(
+        `DUPLICATE PATH: ${methodKey} with ${ctorKey} -> ${uniqueMap.get(methodKey)}`
+      );
+    }
+
+    uniqueMap.set(methodKey, [ctorKey, desc]);
+
+    router[method](desc, mergedPath, async (ctx: Context) => {
+      /** 每次请求都实例化的话可以让每次请求的都保持独立 */
+      const c = new Controller(ctx, options);
+
+      if (ctx.status !== 301 && ctx.status !== 302 && !ctx.body) {
+        /** 依赖函数内的 this.ctx 来取得当前请求的内容 */
+        await c[key]();
+      }
+    });
   });
 
   if (options.mode & AppMode.Debug) {
