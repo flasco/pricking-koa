@@ -51,7 +51,7 @@ const createRouter = (Controller: any, router: Router, options: IOptions) => {
 
     if (uniqueMap.has(methodKey)) {
       throw new Error(
-        `DUPLICATE PATH: ${methodKey} with ${ctorKey} -> ${uniqueMap.get(methodKey)}`
+        `DUPLICATE PATH: ${methodKey} with ${ctorKey} -> ${uniqueMap.get(methodKey).join(' | ')}`
       );
     }
 

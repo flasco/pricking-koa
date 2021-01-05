@@ -22,7 +22,8 @@ const Request = (path: string, method: string) => {
 export const Index = (paths: string[]) => {
   return (target: any, key: string) => {
     target[key][SubPathSymbol] = paths.map(path => {
-      return !path.startsWith('/') ? '/' + path : path;
+      const curPath = !path.startsWith('/') ? '/' + path : path;
+      return curPath === '/' ? '' : curPath;
     });
     target[key][PathMethodSymbol] = 'get';
   };

@@ -39,11 +39,10 @@ import BaseController from 'pricking-koa/dist/controllers/BaseController';
 // path pattern -> ${controllerPath}/*
 @Controller('/v3/books')
 class AnalyseController extends BaseController {
-  /** WARNING: @Index now is not support */
-  @Index(['/'])
+  @Index(['/', '(.*)']) // (.*) -> https://github.com/koajs/router/blob/master/history.md
   @Description()
   async index() {
-    /** WARNING: now is not support */
+    /** WARNING: should add plugin */
     this.ctx.render('book/index.ejs', { currentTime: Date.now() });
   }
 
@@ -100,7 +99,7 @@ export = (options: IOptions) => async (ctx, next) => {
 - [x] all in ts
 - [x] debug in ts mode
 - [x] lint
-- [ ] test
+- [x] test
 - [x] clean middleware loader
 - [x] simple decorator to define route faster
-- [ ] support ejs html render & @Index decorator
+- [x] support @Index decorator

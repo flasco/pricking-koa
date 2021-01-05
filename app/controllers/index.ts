@@ -3,7 +3,7 @@ import BaseController from '../../src/controllers/BaseController';
 
 @Controller('/test')
 class TestController extends BaseController {
-  @Index(['say-hello', '(.*)'])
+  @Index(['say-hello', '', '(.*)'])
   @Description('测试，say hello~')
   helloHomePage() {
     this.ctx.hello();
