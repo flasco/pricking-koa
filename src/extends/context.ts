@@ -17,26 +17,24 @@ class Message {
   extra?: Record<string, any>;
   constructor({ code, msg, data, extra }: IMessage) {
     this.data = data;
-    this.msg = msg || '';
-    this.code = code || HttpStatus.Ok;
+    this.msg = msg;
+    this.code = code;
     this.success = code === HttpStatus.Ok;
     this.extra = extra;
   }
 }
 
+function json(code: HttpStatus, msg: string, data?: any) {
+  this.set('Content-Type', 'application/json');
+  this.body = new Message({ code, msg, data });
+}
+
 export = {
-  json(code = HttpStatus.Ok, msg = '', data: any) {
-    this.set('Content-Type', 'application/json');
-    this.body = new Message({ code, msg, data });
-  },
-
+  json,
   success(data: any) {
-    this.set('Content-Type', 'application/json');
-    this.body = new Message({ code: HttpStatus.Ok, data });
+    return json.call(this, HttpStatus.Ok, '', data);
   },
-
   fail(msg = '请求失败') {
-    this.set('Content-Type', 'application/json');
-    this.body = new Message({ code: HttpStatus.Fail, msg });
+    return json.call(this, HttpStatus.Fail, msg);
   },
 };
