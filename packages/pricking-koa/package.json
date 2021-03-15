@@ -1,19 +1,27 @@
 {
-  "name": "pricking-koa-mono",
-  "version": "0.0.1",
+  "name": "pricking-koa",
+  "version": "0.0.2-alpha.9",
   "description": "",
   "author": "",
-  "private": true,
+  "private": false,
   "license": "MIT",
   "main": "dist/index.js",
-  "workspaces": [
-    "packages/*"
+  "files": [
+    "dist"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
   },
   "scripts": {
-    "lerna": "lerna"
+    "start": "ts-node src/index.ts --files",
+    "dev-start": "ts-node app/index.ts --files",
+    "build": "rm -rf dist && tsc --project tsconfig.prod.json",
+    "test": "jest --runInBand --detectOpenHandles --forceExit",
+    "test:slient": "yarn test --silent",
+    "test:coverage": "yarn test:slient --coverage && open coverage/lcov-report/index.html",
+    "prepublishOnly": "yarn build",
+    "start:prod": "node dist/index",
+    "lint": "eslint \"{src}/**/*.ts\" --fix"
   },
   "dependencies": {
     "@koa/router": "^10.0.0",
@@ -41,7 +49,6 @@
     "eslint-plugin-prettier": "^3.1.4",
     "husky": "^4.3.5",
     "jest": "^26.6.3",
-    "lerna": "^4.0.0",
     "lint-staged": "^10.5.3",
     "prettier": "^2.2.1",
     "supertest": "^6.0.1",

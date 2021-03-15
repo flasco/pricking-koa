@@ -1,5 +1,5 @@
-import { Controller, Description, Get, Index } from '../../src';
-import BaseController from '../../src/controllers/BaseController';
+import { Controller, Description, Get, Index } from 'pricking-koa';
+import BaseController from 'pricking-koa/dist/controllers/BaseController';
 
 @Controller('test')
 class TestController extends BaseController {

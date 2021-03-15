@@ -1,4 +1,4 @@
-import { PrickingCtx } from '../../src/definitions/index';
+import { PrickingCtx } from 'pricking-koa/dist/definitions/index';
 
 export = () => async (ctx: PrickingCtx, next) => {
   try {
