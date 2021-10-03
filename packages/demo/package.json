@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@pricking/cli": "^0.0.1",
-    "@pricking/core": "^0.0.2-alpha.9",
+    "@pricking/core": "^0.0.2",
     "tslib": "^2.3.1"
   },
   "devDependencies": {
