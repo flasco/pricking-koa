@@ -1,0 +1,7 @@
+{
+  "entryPoint": "./app/index.ts",
+  "watch": ["app"],
+  "ext": "ts",
+  "ignore": ["src/**/*.spec.ts"],
+  "delay": 500
+}

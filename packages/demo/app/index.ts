@@ -1,4 +1,4 @@
-import { AppMode, PrickingApplication } from 'pricking-koa';
+import { AppMode, PrickingApplication } from '@pricking/core';
 
 new PrickingApplication({
   rootPath: __dirname,
