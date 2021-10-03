@@ -1,10 +1,11 @@
 {
   "name": "@pricking/cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
     "start": "ts-node src/index",
+    "prepublishOnly": "yarn build",
     "build": "rm -rf dist && tsc --project tsconfig.prod.json"
   },
   "files": [
@@ -14,7 +15,8 @@
     "pricking-cli": "./dist/index.js"
   },
   "publishConfig": {
-    "registry": "https://registry.npmjs.org"
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
   },
   "dependencies": {
     "chalk": "^4.1.2",

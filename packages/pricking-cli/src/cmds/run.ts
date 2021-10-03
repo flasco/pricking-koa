@@ -34,11 +34,13 @@ const objInject = (key: string, value: any, defaultValue?: any) => {
 
 const convertConf = (confPath: string, pconf: IPrickingConf) => {
   const entryPath = path.join(path.dirname(confPath), pconf.entryPoint);
-  const execInstArr = [`ts-node ${entryPath}`];
+  const execInstArr = ['ts-node'];
 
   if (pconf.execArgs && Array.isArray(pconf.execArgs)) {
     execInstArr.push(...pconf.execArgs.map(i => (typeof i === 'string' ? i : i.join(' '))));
   }
+
+  execInstArr.push(entryPath);
 
   const execInst = execInstArr.join(' ');
 
