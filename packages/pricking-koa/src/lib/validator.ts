@@ -18,6 +18,13 @@ class Validators {
     }
     return this;
   }
+
+  isTruthy(value: boolean, msg = '参数不符合预期') {
+    if (!value) {
+      throw new Error(msg);
+    }
+    return this;
+  }
 }
 
 export = Validators;
