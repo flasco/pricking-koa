@@ -1,0 +1,26 @@
+{
+  "name": "@pricking/cli",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "ts-node src/index",
+    "build": "rm -rf dist && tsc --project tsconfig.prod.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "bin": {
+    "pricking-cli": "./dist/index.js"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "nodemon": "^2.0.13",
+    "ts-node": "^10.2.1",
+    "yargs": "^17.2.1",
+    "zx": "^4.2.0"
+  }
+}

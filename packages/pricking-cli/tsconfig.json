@@ -1,0 +1,8 @@
+{
+  "include": ["./src"],
+  "exclude": ["node_modules", "dist"],
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./local",
+  }
+}
