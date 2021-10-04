@@ -1,8 +1,11 @@
-# pricking-koa <alpha>
+# pricking-koa-mono
 
 a simple node framework based on koa2, in order to improve development efficiency.
 
-WARNING: now only as an api server.
+## TODO
+
+[ ] support load env config.
+[ ] improve test coverage.
 
 ## focus
 
@@ -21,7 +24,6 @@ src
 └── middlewares # custom middlewares
 ```
 
-
 ## about extra middleware
 
 Don't design middleware that depends on execution order.(if necessary, only export a compose middleware)
@@ -33,8 +35,8 @@ It's worth mentioning that the middleware loading will traverse every possible f
 how to use it?
 
 ```ts
-import { Controller, Description, Get } from 'pricking-koa/dist/utils/decorator';
-import BaseController from 'pricking-koa/dist/controllers/BaseController';
+import { Controller, Description, Get } from '@pricking/core/dist/utils/decorator';
+import BaseController from '@pricking/core/dist/controllers/BaseController';
 
 // path pattern -> ${controllerPath}/*
 @Controller('/v3/books')
@@ -72,7 +74,7 @@ export = AnalyseController;
 ```
 
 ```ts
-import { PrickingApplication } from 'pricking-koa';
+import { PrickingApplication } from '@pricking/core';
 
 new PrickingApplication({
   // framework will auto load route from <ROOT>/controllers
