@@ -1,17 +1,10 @@
 {
   "name": "pricking-koa-mono",
-  "version": "0.0.1",
-  "description": "",
-  "author": "",
   "private": true,
   "license": "MIT",
-  "main": "dist/index.js",
   "workspaces": [
     "packages/*"
   ],
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org"
-  },
   "scripts": {
     "lerna": "lerna",
     "build": "lerna run --stream --sort build"
@@ -32,27 +25,11 @@
     "lerna": "^4.0.0",
     "lint-staged": "^10.5.3",
     "prettier": "^2.2.1",
+    "release-it": "^14.11.6",
     "supertest": "^6.0.1",
     "ts-jest": "^26.4.4",
     "ts-node": "^9.1.0",
     "typescript": "^4.1.2"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "ts"
-    ],
-    "rootDir": "src",
-    "testRegex": ".*\\.spec\\.ts$",
-    "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
-    },
-    "collectCoverageFrom": [
-      "**/*.(t|j)s"
-    ],
-    "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
   },
   "husky": {
     "hooks": {

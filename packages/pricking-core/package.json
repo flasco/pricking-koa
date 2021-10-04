@@ -9,6 +9,12 @@
   "files": [
     "dist"
   ],
+  "release-it": {
+    "git": {
+      "tag": false,
+      "commitMessage": "release: @pricking/cli ${version}"
+    }
+  },
   "publishConfig": {
     "registry": "https://registry.npmjs.org",
     "access": "public"
@@ -17,6 +23,7 @@
     "start": "ts-node src/index.ts --files",
     "dev-start": "ts-node app/index.ts --files",
     "build": "rm -rf dist && tsc --project tsconfig.prod.json",
+    "release": "yarn build & release-it",
     "test": "jest --runInBand --detectOpenHandles --forceExit",
     "test:slient": "yarn test --silent",
     "test:coverage": "yarn test:slient --coverage && open coverage/lcov-report/index.html",
