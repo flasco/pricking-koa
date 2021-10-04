@@ -20,5 +20,9 @@ cli
       describe: 'cli config path',
       alias: 'cpath',
     },
+    inspect: {
+      type: 'boolean',
+      describe: 'node debug flag',
+    },
   })
   .parse();

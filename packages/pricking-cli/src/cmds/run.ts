@@ -32,12 +32,16 @@ const objInject = (key: string, value: any, defaultValue?: any) => {
   return value ? { [key]: value } : {};
 };
 
-const convertConf = (confPath: string, pconf: IPrickingConf) => {
+const convertConf = (confPath: string, pconf: IPrickingConf, argv: any) => {
   const entryPath = path.join(path.dirname(confPath), pconf.entryPoint);
-  const execInstArr = ['ts-node'];
+  const execInstArr = ['node', '-r ts-node/register', '-r tsconfig-paths/register'];
 
   if (pconf.execArgs && Array.isArray(pconf.execArgs)) {
     execInstArr.push(...pconf.execArgs.map(i => (typeof i === 'string' ? i : i.join(' '))));
+  }
+
+  if (argv?.inspect) {
+    execInstArr.push('--inspect');
   }
 
   execInstArr.push(entryPath);
@@ -60,7 +64,7 @@ const start = (argv: any) => {
   const configPath = (argv.cpath as string) ?? './.pricking-config.json';
   const fullConfPath = path.resolve(process.cwd(), configPath);
   const config = getConfig(fullConfPath);
-  const nodemonConf = convertConf(fullConfPath, config);
+  const nodemonConf = convertConf(fullConfPath, config, argv);
 
   nodemon(nodemonConf);
   nodemon
