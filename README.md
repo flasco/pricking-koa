@@ -1,5 +1,7 @@
 # pricking-koa-mono
 
+> WARNING: now it's a toy, if you want use it in production environment, please consider carefully. :)
+
 a simple node framework based on koa2, in order to improve development efficiency.
 
 ## TODO
