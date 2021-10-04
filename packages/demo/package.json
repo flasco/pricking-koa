@@ -6,8 +6,7 @@
   "private": false,
   "license": "MIT",
   "scripts": {
-    "start": "pricking-cli start",
-    "build": "echo success"
+    "start": "pricking-cli start"
   },
   "dependencies": {
     "@pricking/cli": "^0.0.3",

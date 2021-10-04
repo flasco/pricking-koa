@@ -5,14 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "ts-node src/index",
-    "build": "rm -rf dist && tsc --project tsconfig.prod.json",
-    "release": "yarn build & release-it"
-  },
-  "release-it": {
-    "git": {
-      "tag": false,
-      "commitMessage": "release: @pricking/cli ${version}"
-    }
+    "build": "rm -rf dist && tsc --project tsconfig.prod.json"
   },
   "files": [
     "dist"
