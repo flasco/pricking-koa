@@ -1,6 +1,6 @@
 {
   "name": "pricking-koa-demo",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "",
   "author": "",
   "private": false,
@@ -10,8 +10,8 @@
     "build": "echo success"
   },
   "dependencies": {
-    "@pricking/cli": "^0.0.2",
-    "@pricking/core": "^0.0.2",
+    "@pricking/cli": "^0.0.3",
+    "@pricking/core": "^0.0.3",
     "tslib": "^2.3.1"
   }
 }
