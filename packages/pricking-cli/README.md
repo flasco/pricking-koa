@@ -4,8 +4,8 @@ program start, as ts-node & nodemon wrapper.
 
 ## TODO
 
-[ ] new inst - `init`
-[ ] new inst - `test`
+* [ ] new inst - `init`
+* [ ] new inst - `test`
 
 ## inst
 

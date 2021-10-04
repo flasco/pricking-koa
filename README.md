@@ -4,8 +4,8 @@ a simple node framework based on koa2, in order to improve development efficienc
 
 ## TODO
 
-[ ] support load env config.
-[ ] improve test coverage.
+* [ ] support load env config.
+* [ ] improve test coverage.
 
 ## focus
 
