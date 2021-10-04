@@ -12,7 +12,7 @@
   "release-it": {
     "git": {
       "tag": false,
-      "commitMessage": "release: @pricking/cli ${version}"
+      "commitMessage": "release: @pricking/core ${version}"
     }
   },
   "publishConfig": {
