@@ -12,5 +12,6 @@
     "@pricking/cli": "^0.0.5",
     "@pricking/core": "^0.0.5",
     "tslib": "^2.3.1"
-  }
+  },
+  "gitHead": "9afe4a92dfcceb7d555bea2f4b24a8829792851d"
 }

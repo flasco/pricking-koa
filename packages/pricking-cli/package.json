@@ -6,8 +6,7 @@
   "scripts": {
     "start": "ts-node src/index",
     "prepublishOnly": "yarn build",
-    "build": "rm -rf dist && tsc --project tsconfig.prod.json",
-    "publish": "npm publish --registry=https://registry.npmjs.org"
+    "build": "rm -rf dist && tsc --project tsconfig.prod.json"
   },
   "files": [
     "dist"
@@ -26,5 +25,6 @@
     "tsconfig-paths": "^3.11.0",
     "yargs": "^17.2.1",
     "zx": "^4.2.0"
-  }
+  },
+  "gitHead": "9afe4a92dfcceb7d555bea2f4b24a8829792851d"
 }

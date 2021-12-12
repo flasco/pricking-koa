@@ -21,7 +21,6 @@
     "test:slient": "yarn test --silent",
     "test:coverage": "yarn test:slient --coverage && open coverage/lcov-report/index.html",
     "prepublishOnly": "yarn build",
-    "publish": "npm publish --registry=https://registry.npmjs.org",
     "start:prod": "node dist/index",
     "lint": "eslint \"{src}/**/*.ts\" --fix"
   },
@@ -63,5 +62,6 @@
   },
   "lint-staged": {
     "*.ts": "eslint"
-  }
+  },
+  "gitHead": "9afe4a92dfcceb7d555bea2f4b24a8829792851d"
 }
