@@ -5,7 +5,9 @@
   "license": "MIT",
   "scripts": {
     "start": "ts-node src/index",
-    "build": "rm -rf dist && tsc --project tsconfig.prod.json"
+    "prepublishOnly": "yarn build",
+    "build": "rm -rf dist && tsc --project tsconfig.prod.json",
+    "publish": "npm publish --registry=https://registry.npmjs.org"
   },
   "files": [
     "dist"
