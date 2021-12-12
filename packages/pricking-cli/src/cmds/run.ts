@@ -68,9 +68,7 @@ const start = (argv: any) => {
 
   nodemon(nodemonConf);
   nodemon
-    .on('start', function () {
-      console.log(chalk.green('App has started'));
-    })
+    .on('start', () => null)
     .on('quit', function () {
       console.log(chalk.yellow('App has quit'));
       process.exit();
