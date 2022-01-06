@@ -44,10 +44,6 @@ const convertConf = (confPath: string, pconf: IPrickingConf, argv: any) => {
     execInstArr.push('--inspect');
   }
 
-  if (!argv?.watch) {
-    delete pconf.watch;
-  }
-
   execInstArr.push(entryPath);
 
   const execInst = execInstArr.join(' ');

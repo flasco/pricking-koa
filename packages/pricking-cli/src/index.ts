@@ -28,10 +28,6 @@ cli
           type: 'boolean',
           describe: 'node debug flag',
         },
-        watch: {
-          type: 'boolean',
-          describe: 'watch file & hot reload',
-        },
       }),
     async argv => {
       (await import('./cmds/run')).default(argv);
