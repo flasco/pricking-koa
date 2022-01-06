@@ -1,10 +1,10 @@
 # @pricking/cli
 
-program start, as ts-node & nodemon wrapper.
+program start, as @swc-node/register & nodemon wrapper.
 
 ## TODO
 
-* [ ] new inst - `init`
+* [x] new inst - `init`
 * [ ] new inst - `test`
 
 ## inst
@@ -13,6 +13,7 @@ program start, as ts-node & nodemon wrapper.
 pricking-cli [命令]
 
 命令：
+  pricking-cli init
   pricking-cli start [options]
 
 程式启动

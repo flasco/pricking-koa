@@ -20,7 +20,7 @@
       "args": [
         "${workspaceRoot}/src/index.ts" // 入口文件
       ],
-      "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
+      "runtimeArgs": ["--nolazy", "-r", "@swc-node/register"],
       "sourceMaps": true,
       "cwd": "${workspaceRoot}",
       "protocol": "inspector"
@@ -30,7 +30,7 @@
       "type": "node",
       "request": "launch",
       "args": ["${relativeFile}"],
-      "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
+      "runtimeArgs": ["--nolazy", "-r", "@swc-node/register"],
       "sourceMaps": true,
       "cwd": "${workspaceRoot}",
       "protocol": "inspector",

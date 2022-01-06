@@ -7,22 +7,34 @@ const cli = yargs(hideBin(process.argv));
 
 cli
   .command(
+    'init',
+    '初始化配置',
+    () => null,
+    async () => {
+      (await import('./cmds/init')).default();
+    }
+  )
+  .command(
     'start [options]', // 尖括号必传，方括号选传
     '程式启动',
-    () => null,
+    yargs =>
+      yargs.options({
+        confgPath: {
+          type: 'string',
+          describe: 'cli config path',
+          alias: 'cpath',
+        },
+        inspect: {
+          type: 'boolean',
+          describe: 'node debug flag',
+        },
+        watch: {
+          type: 'boolean',
+          describe: 'watch file & hot reload',
+        },
+      }),
     async argv => {
       (await import('./cmds/run')).default(argv);
     }
   )
-  .options({
-    confgPath: {
-      type: 'string',
-      describe: 'cli config path',
-      alias: 'cpath',
-    },
-    inspect: {
-      type: 'boolean',
-      describe: 'node debug flag',
-    },
-  })
   .parse();
