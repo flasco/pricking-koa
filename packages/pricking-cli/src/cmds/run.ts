@@ -34,7 +34,7 @@ const objInject = (key: string, value: any, defaultValue?: any) => {
 
 const convertConf = (confPath: string, pconf: IPrickingConf, argv: any) => {
   const entryPath = path.join(path.dirname(confPath), pconf.entryPoint);
-  const execInstArr = ['node', '-r @swc-node/register', '-r tsconfig-paths/register'];
+  const execInstArr = ['esno', '-r tsconfig-paths/register'];
 
   if (pconf.execArgs && Array.isArray(pconf.execArgs)) {
     execInstArr.push(...pconf.execArgs.map(i => (typeof i === 'string' ? i : i.join(' '))));

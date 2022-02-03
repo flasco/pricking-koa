@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node -r @swc-node/register src/index",
+    "start": "esno src/index",
     "prepublishOnly": "yarn build",
     "build": "rm -rf dist && tsc --project tsconfig.prod.json"
   },
@@ -19,8 +19,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@swc-node/register": "^1.4.2",
     "chalk": "^4.1.2",
+    "esno": "^0.14.0",
     "nodemon": "^2.0.13",
     "tsconfig-paths": "^3.11.0",
     "yargs": "^17.2.1",

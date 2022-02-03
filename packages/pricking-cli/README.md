@@ -1,11 +1,11 @@
 # @pricking/cli
 
-program start, as @swc-node/register & nodemon wrapper.
+program start, as esno & nodemon wrapper.
 
 ## TODO
 
 * [x] new inst - `init`
-* [ ] new inst - `test`
+* [ ] new inst - `test` [可考虑集成 vitest]
 
 ## inst
 

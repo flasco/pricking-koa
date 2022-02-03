@@ -4,38 +4,12 @@
   // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
-  {
-    "name": "Attach",
-    "port": 9229,
-    "request": "attach",
-    "skipFiles": [
-      "<node_internals>/**"
-    ],
-    "type": "pwa-node"
-  },
     {
-      "name": "ts Program",
-      "type": "node",
-      "request": "launch",
-      "args": [
-        "${workspaceRoot}/src/index.ts" // 入口文件
-      ],
-      "runtimeArgs": ["--nolazy", "-r", "@swc-node/register"],
-      "sourceMaps": true,
-      "cwd": "${workspaceRoot}",
-      "protocol": "inspector"
-    },
-    {
-      "name": "Current TS File",
-      "type": "node",
-      "request": "launch",
-      "args": ["${relativeFile}"],
-      "runtimeArgs": ["--nolazy", "-r", "@swc-node/register"],
-      "sourceMaps": true,
-      "cwd": "${workspaceRoot}",
-      "protocol": "inspector",
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen"
+      "name": "Attach",
+      "port": 9229,
+      "request": "attach",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "pwa-node"
     },
     {
       "type": "node",
